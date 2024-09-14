@@ -3,11 +3,14 @@ import validate from '../utils/validate';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from '../utils/firebase';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
   const [isSignupForm, setIsSignupForm] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  
+  const dispatch = useDispatch();
+
   const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
@@ -23,16 +26,21 @@ const Login = () => {
 
     if (isSignupForm) {
       // Signup functionality
-      createUserWithEmailAndPassword(auth, email.current.value, password.current.value,name.current.value)
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
         .then((userCredential) => {
-          // Signed up 
+          // Signed up
           const user = userCredential.user;
-          console.log(user);
 
           // Update the display name
           updateProfile(user, {
             displayName: name.current.value
           }).then(() => {
+
+            // Dispatch user to Redux store after successful profi
+            const {uid,email,displayName}=auth.currentUser
+    
+            dispatch(addUser({uid:uid,email:email,name:displayName }))
+
             navigate("/login");
           }).catch((error) => {
             console.log("Error updating profile", error);
@@ -49,7 +57,13 @@ const Login = () => {
         .then((userCredential) => {
           // Logged in
           const user = userCredential.user;
+          const {uid,email,displayName}=auth.currentUser
+    
+          dispatch(addUser({uid:uid,email:email,name:displayName }))
           console.log(user);
+
+          // Dispatch user to Redux store
+
 
           navigate('/body');
         })
