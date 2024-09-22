@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: netflix-app-working
+spec:
+  selector:
+    app.kubernetes.io/name: netflix-app-working
+  ports:
+    - port: 80
+      targetPort: 5174
+      nodePort: 30008
+  type: NodePort
+
+  

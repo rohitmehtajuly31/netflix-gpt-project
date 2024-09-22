@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .               # Path to the directory containing the Dockerfile
+      dockerfile: Dockerfile   # Explicitly specify the Dockerfile if named differently
+    image: netflix-gpt-app1        # Set the image name to 'netflix-gpt'
+    container_name: netflix-gpt1 # Set the container name to 'netflix-glt'
+    ports:
+      - "3000:3000"            # Map port 3000 on the host to port 3000 in the container
+    volumes:
+      - C:/Users/Admin/netflix-gpt:/react-app  # Mount the local directory to /react-app in the container
+    environment:
+      - NODE_ENV=development   # Pass environment variable to the container
+    command: ["npm","start"]  # Start the application using npm start

@@ -3,14 +3,14 @@ import { createBrowserRouter, RouterProvider, Outlet, useNavigate } from 'react-
 import './index.css';
 import Body from './components/Body';
 import Header from './components/Header';
-import Login from './components/login';
+import Login from './components/Login';
 import { Provider } from 'react-redux';
 import { onAuthStateChanged} from "firebase/auth";
 import { useDispatch } from 'react-redux';
 import { addUser, removeUser } from './utils/userSlice';
 import { auth } from './utils/firebase';
 
-import appStore from './utils/appstore';
+import appStore from './utils/appStore';
 const Applayout = () => {
   const dispatch=useDispatch();
   const navigate=useNavigate()

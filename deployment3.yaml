@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netflix-app-working
+  labels:
+    app: netflix-app-working
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: netflix-app-working
+  template:
+    metadata:
+      labels:
+        app: netflix-app-working
+    spec:
+      containers:
+      - name: netflix-app-working
+        image: rohitmehta2354/netflix-app-working
+        ports:
+        - containerPort: 5174
+
